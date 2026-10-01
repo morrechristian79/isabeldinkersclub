@@ -604,9 +604,6 @@ function render() {
   const c = activeCategory();
   const categorySelector = $('categorySelect');
   const reopenButton = document.getElementById('reopenPools');
-  reopenButton.hidden = true;
-  reopenButton.hidden = false;
-
   categorySelector.replaceChildren();
   data.categories.forEach(category => {
     const option = elem('option', '', category.name);
@@ -642,7 +639,9 @@ function render() {
     `${categoryBrackets().length === 1 ? '' : 's'}`;
 
   $('deleteBracket').disabled = categoryLocked() || categoryBrackets().length === 1;
-  $('displayName').textContent = state.name || 'Untitled bracket';
+  $('displayName').textContent =
+  `${activeCategory().name || 'Untitled category'} — ${state.name || 'Untitled bracket'}`;
+  // $('displayName').textContent = state.name || 'Untitled bracket';
   $('tournamentName').value = state.name;
   $('formatSelect').value = state.format;
 
@@ -816,8 +815,10 @@ $('tournamentName').oninput = event => {
     .trimStart()
     .slice(0, 60);
 
-  $('displayName').textContent =
-    state.name || 'Untitled bracket';
+    $('displayName').textContent =
+  `${activeCategory().name || 'Untitled category'} — ${state.name || 'Untitled bracket'}`;
+  // $('displayName').textContent =
+  //   state.name || 'Untitled bracket';
 
   $('bracketSelect').selectedOptions[0].textContent =
     state.name || 'Untitled bracket';
