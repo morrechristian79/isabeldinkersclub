@@ -1,0 +1,422 @@
+/* Base styles */
+:root {
+  font-family: Arial, sans-serif;
+  color: #14251b;
+  background: #f4f7f1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #14251b;
+  background: #f4f7f1;
+}
+
+/* Header */
+    header {
+  position: relative;
+  min-height: 180px;
+  padding: 19px clamp(20px, 4vw, 64px);
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  isolation: isolate;
+  
+}
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("pickleball_paddle.jpg");
+  background-position: 50% center;
+  background-size: auto 55%;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+  pointer-events: none;
+  background-size: cover;
+}
+
+      .header-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: max-content;
+        max-width: 90%;
+    }
+
+    .header-title h1 {
+        margin: 0;
+        color: #c1f408;
+        font-family: "Oswald", sans-serif;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    .header-logo {
+        display: block;
+        width: auto;
+        max-width: min(5vw, 280px);
+        height: 60px;
+        object-fit: contain;
+    
+    }
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        font-weight: 850;
+        font-size: 1.35rem;
+        letter-spacing: -0.05em;
+        color: #b6d408;
+    }
+    .brand-logo {
+      display: block;
+      width: 500px;
+      height: 156px;
+      object-fit: contain;
+      flex-shrink: 0;
+      }
+/* Main layout */
+    main {
+      max-width: 1500px;
+      margin: auto;
+      padding: 32px clamp(18px, 4vw, 62px) 65px;
+    }
+
+.title-row,
+.toolbar {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 27px;
+}
+
+.title-row h1 h2 p{
+      font-size: clamp(2rem, 4vw, 3.45rem);
+      letter-spacing: -0.07em;
+      line-height: 1.05;
+      margin: 0;
+}
+
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #b7e818;
+      margin: 0 0 8px;
+    }
+
+.pill {
+      background: #e6f0de;
+      color: #315944;
+      border-radius: 100px;
+      padding: 9px 14px;
+      font-weight: 700;
+      font-size: 0.85rem;
+}
+
+.layout {
+      display: grid;
+      grid-template-columns: minmax(290px, 350px) minmax(0, 1fr);
+      gap: 21px;
+      align-items: start;
+}
+
+.panel {
+      background: #fff;
+      border: 1px solid #e0e7db;
+      border-radius: 18px;
+      box-shadow: 0 8px 30px rgba(22, 53, 37, 0.04);
+}
+
+/* Sidebar */
+.sidebar section + section {
+      border-top: 1px solid #edf0e8;
+      margin-top: 25px;
+      padding-top: 24px;
+}
+
+.sidebar h2 {
+  font-size: 1.15rem;
+  padding: 23px; 
+}
+
+.sidebar label {
+  display: block;
+  margin: 14px 0 6px;
+  font-size: 0.9rem;
+}
+
+.sidebar input,
+.sidebar select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #b7c5b2;
+  border-radius: 8px;
+  font: inherit;
+}
+
+.sidebar button {
+  width: 100%;
+  margin-top: 10px;
+}
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 17px;
+    }
+
+.count {
+  font-size: 0.85rem;
+  font-weight: normal;
+}
+
+/* Buttons and focus */
+button {
+  padding: 10px 14px;
+  border: 1px solid #b7c5b2;
+  border-radius: 8px;
+  background: #e6f0de;
+  color: #234331;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #d4ef5b;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #759c16;
+  outline-offset: 2px;
+}
+
+/* Toolbar and messages */
+.toolbar {
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hint,
+.small-note {
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.message {
+  color: #a52617;
+  min-height: 1em;
+}
+
+/* Team list */
+.teams {
+  padding-left: 20px;
+}
+
+.teams li {
+  margin: 10px 0;
+}
+
+.teams li button {
+  width: auto;
+  font-size: 0.75rem;
+  margin: 0 0 0 4px;
+}
+
+/* Standings */
+.standings-scroll {
+  width: 100%;
+  overflow-x: auto;
+  margin: 0 0 16px;
+}
+
+.standings {
+  width: 100%;
+  min-width: 630px;
+  border-collapse: collapse;
+}
+
+.standings th,
+.standings td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e7eee5;
+}
+
+.qualifier {
+  background: #eff8d7;
+}
+
+.tie {
+  width: 65px;
+  padding: 7px;
+}
+
+/* Brackets and matches */
+.bracket-wrap {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 20px 0;
+}
+
+.round {
+  min-width: 230px;
+  width: 230px;
+  flex-shrink: 0;
+}
+
+.round h3 {
+  font-size: 1rem;
+}
+
+.match {
+  padding: 16px;
+  border: 1px solid #dce4d8;
+  border-radius: 12px;
+  margin-bottom: 14px;
+  background: #fafcf8;
+}
+
+.match > div:not(.scores) {
+  padding: 6px 0;
+  overflow-wrap: anywhere;
+}
+
+.scores {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.scores input {
+  width: 75px;
+  padding: 8px;
+  font: inherit;
+}
+
+.winner {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #315944;
+}
+
+/* Playoffs and champion */
+#champion {
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 20px 0;
+}
+
+.playoff-heading {
+  border-top: 1px solid #dce4d8;
+  padding-top: 24px;
+}
+
+/* Footer */
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  color: #5c6859;
+}
+
+footer a {
+  color: inherit;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Tablet: 900px and below */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .sidebar section + section {
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  .toolbar {
+    flex-direction: column;
+  }
+}
+
+/* Mobile: 600px and below */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  header .brand-logo {
+    width: 110px;
+  }
+
+  .sidebar {
+    display: block;
+  }
+
+  .sidebar section + section {
+    border-top: 1px solid #dce4d8;
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+
+  .title-row {
+    align-items: flex-start;
+  }
+
+  .title-row h1 {
+    font-size: 1.6rem;
+  }
+
+  main {
+    padding: 24px 14px 40px;
+  }
+}

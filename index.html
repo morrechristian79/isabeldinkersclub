@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Isabel Dinker’s Club</title>
+    <link
+        rel="canonical"
+        href="https://getbootstrap.com/docs/5.3/examples/footers/"
+      />
+    <meta name="description" content="Create a pickleball tournament, manage teams, and run a live single-elimination bracket.">
+    <link rel="icon" type="idc_logo2.png" href="idclogo2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="assets/js/color-modes.js"></script>
+    <link href="assets/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      .bracket-wrap,
+      .bracket-wrap p,
+      .bracket-wrap h3,
+      .bracket-wrap div,
+      .sidebar,
+      .sidebar h2,
+      .sidebar .label,
+      .sidebar .hint,
+      .sidebar .count,
+      .toolbar,
+      .toolbar button,
+      .toolbar h2,
+      .toolbar p {
+        color: #000;
+      }
+      .sidebar button{
+        color: #315944;
+        background: #e6f0de;
+        font-weight: 500;
+      }
+      .standings-scroll {
+        width: 100%;
+        overflow-x: auto;
+        margin: 0 0 26px;
+      }
+
+      .standings {
+        width: 100%;
+        min-width: 440px;
+        border-collapse: collapse;
+      }
+
+      .standings th,
+      .standings td {
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 1px solid #e7eee5;
+      }
+    </style>
+    <meta name="theme-color" content="#c9c8cc" />
+    
+
+  </head>
+  <body>
+    <header> <img class="brand-logo" src="transparent-logo.png" alt="Isabel Dinker’s Club logo"/>
+
+      <div class="header-title">
+          <h1> PLAY. CONNECT. ELEVATE.</h1>
+      </div>
+    </header>
+
+<main>
+  <div class="title-row">
+    <div>
+      <p class="eyebrow"></p>
+      <h1 id="displayName"></h1>
+      <p class="sub text-uppercase">Your biggest opponent in pickleball is often your own mindset.</p>
+    </div>
+
+    <span class="pill" id="status">Setup in progress</span>
+  </div>
+
+  <div class="layout">
+    <aside class="panel sidebar">
+      <section>
+        <h2>Categories</h2>
+        <label class="label" for="categorySelect">Current category</label>
+        <select id="categorySelect"></select>
+        <label class="label" for="categoryName">Category name</label>
+        <input id="categoryName" type="text" maxlength="60">
+        <form id="newCategoryForm">
+          <label class="label" for="newCategoryName">New category</label>
+          <input id="newCategoryName" type="text" maxlength="60" placeholder="e.g. Mixed doubles" required>
+          <button class="btn full" type="submit">+ Create category</button>
+        </form>
+      </section>
+      <section>
+        <div class="section-heading">
+          <h2>Brackets</h2>
+          <span class="count" id="bracketCount">1 bracket</span>
+        </div>
+
+        <label class="label" for="bracketSelect">Current bracket</label>
+        <select id="bracketSelect" aria-label="Current bracket"></select>
+
+        <form id="newBracketForm">
+          <label class="label" for="newBracketName">New bracket name</label>
+          <input
+            id="newBracketName"
+            type="text"
+            maxlength="60"
+            placeholder="e.g. Bracket A"
+            required
+          />
+          <button class="btn full btn-secondary px-3" type="submit">
+            + Create bracket
+          </button>
+        </form>
+
+        <p class="message" id="bracketMessage" role="alert"></p>
+
+        <button
+          class="btn full btn-secondary px-3"
+          id="deleteBracket"
+          type="button"
+        >
+          Delete current bracket
+        </button>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <h2>Tournament</h2>
+        </div>
+
+        <label class="label" for="tournamentName">Bracket name</label>
+        <input
+          id="tournamentName"
+          type="text"
+          maxlength="60"
+          value="Saturday Open"
+        />
+
+        <label class="label" for="formatSelect">Format</label>
+        <select id="formatSelect">
+          <option value="single">Single elimination</option>
+          <option value="round-robin">
+            Single round robin + single elimination
+          </option>
+        </select>
+
+        <p class="hint" id="formatHint">One winning team per match.</p>
+      </section>
+
+      <section>
+        <div class="section-heading">
+          <h2>Teams</h2>
+          <span class="count" id="teamCount">0 teams</span>
+        </div>
+
+        <form id="addForm">
+          <label class="label" for="teamInput">Team or player name</label>
+          <input
+            id="teamInput"
+            type="text"
+            maxlength="45"
+            placeholder="e.g. Court Kings"
+            autocomplete="off"
+            required
+          />
+          <button class="btn full" type="submit">+ Add team</button>
+        </form>
+
+        <p class="message" id="formMessage" role="alert"></p>
+        <ul class="teams" id="teamList"></ul>
+
+        <button
+          class="btn full btn-primary rounded-pill px-3"
+          id="generate"
+          type="button"
+        >
+          Generate bracket
+        </button>
+
+        <p class="hint">
+          Add 2–16 teams. Empty slots receive an automatic bye.
+        </p>
+      </section>
+    </aside>
+
+    <section class="panel main-panel" aria-label="Tournament bracket">
+      <div class="toolbar">
+        <div>
+          <h2>Bracket</h2>
+          <p id="bracketSummary">Add teams to get started.</p>
+        </div>
+
+        <div class="toolbar-actions">
+          <button class="btn btn-primary rounded-pill" id="startPlayoffs" type="button" hidden>
+            Start category playoffs
+          </button>
+          <button
+            class="btn full btn-secondary rounded-pill px-3"
+            id="reset"
+            type="button"
+          >
+            Reset current bracket
+          </button>
+        </div>
+      </div>
+
+      <p id="categorySummary" class="hint"></p>
+      <!-- <p class="hint">Complete every bracket before starting playoffs. Top two from each advance. Two brackets: A1 vs B2 and B1 vs A2. More brackets add earlier knockout rounds; one bracket goes directly to a final. Exact statistical ties require a manual order.</p> -->
+      <div class="bracket-wrap" id="bracketArea"></div>
+      
+      <span class="bracket-wrap" >
+        <h2>Category playoffs</h2>
+      </span>
+      <button class="btn btn-outline" id="reopenPools" type="button" hidden>Reopen round robin</button>
+
+      <div class="bracket-wrap" id="categoryPlayoffs"></div>
+      <div id="champion"></div>
+
+      <div class="small-note">
+        Each category, bracket and score is saved on this device.
+        <button class="btn btn-outline" id="exportBackup" type="button">Export backup</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+
+     <div class="container">
+      <footer class="py-3 my-4">
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 text-body-secondary">
+          <span>&copy; Isabel Dinker’s Club. All rights reserved.</span>
+          <span aria-hidden="true">|</span>
+          <a href="privacy-policy.html" class="link-secondary">Privacy Policy</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="script.js" defer></script>
+
+  </body>
+</html>
